@@ -25,7 +25,7 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='View-Walkthrough-Notes.gif' title='View-Walkthrough-Notes' width='50%' alt='View-Walkthrough-Notes' />
+<img src='Video-Walkthrough-Notes.gif' title='Video-Walkthrough-Notes' width='50%' alt='Video-Walkthrough-Notes' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
