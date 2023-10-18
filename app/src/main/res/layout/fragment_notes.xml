@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ADD NOTE"
-            android:onClick="@{() -> viewModel.addNote()}"/>
+            android:onClick="@{() -> viewModel.onNoteClicked(-1)}"/>
 
     </LinearLayout>
 </layout>

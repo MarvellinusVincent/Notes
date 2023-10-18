@@ -13,17 +13,25 @@ import kotlinx.coroutines.launch
  * @param noteId The ID of the note to edit.
  * @param dao The data access object for interacting with notes.
  */
-class EditNotesViewModel(val noteId: Long, val dao: NoteDao) : ViewModel() {
+class EditNotesViewModel(noteId: Long, val dao: NoteDao) : ViewModel() {
     /**
      * LiveData representing the note being edited.
      */
-    val note = dao.get(noteId)
+    var note = MutableLiveData<Note>()
+    val noteId : Long = noteId
 
     /**
      * Initializes the ViewModel and logs the noteId being used.
      */
     init {
         Log.d("EditNotesViewModel", "noteId used: $noteId")
+        dao.get(noteId).observeForever{ it ->
+            if(it == null) {
+                note.value = Note()
+            } else {
+                note.value = it
+            }
+        }
     }
 
     /**
@@ -42,8 +50,11 @@ class EditNotesViewModel(val noteId: Long, val dao: NoteDao) : ViewModel() {
      */
     fun saveNote() {
         viewModelScope.launch {
-            Log.d("EditNotesViewModel", "saveNote called with noteId: $noteId")
-            dao.update(note.value!!)
+            if(note.value?.noteId != 0L) {
+                dao.update(note.value!!)
+            } else {
+                dao.insert(note.value!!)
+            }
             _navigateToList.value = true
         }
     }

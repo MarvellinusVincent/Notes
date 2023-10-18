@@ -110,7 +110,6 @@ class NotesFragment : Fragment() {
                 viewModel.onNoteNavigated()
             }
         })
-
         return view
     }
 

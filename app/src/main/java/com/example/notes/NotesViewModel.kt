@@ -26,16 +26,6 @@ class NotesViewModel(val dao: NoteDao) : ViewModel() {
         get() = _navigateToNote
 
     /**
-     * Add a new note to the database using a coroutine.
-     */
-    fun addNote() {
-        viewModelScope.launch {
-            val newNote = Note()
-            dao.insert(newNote)
-        }
-    }
-
-    /**
      * Delete a note from the database using a coroutine.
      *
      * @param noteId The ID of the note to be deleted.
