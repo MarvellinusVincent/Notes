@@ -4,7 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/notesFragment">
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.notes.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/notesFragment"
@@ -14,6 +27,9 @@
         <action
             android:id="@+id/action_notesFragment_to_editNotesFragment"
             app:destination="@+id/editNotesFragment"/>
+        <action
+            android:id="@+id/action_notesFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 
     <fragment
@@ -23,10 +39,33 @@
         tools:layout="@layout/fragment_edit_notes">
         <argument
             android:name="noteId"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/action_editNotesFragment_to_notesFragment"
             app:destination="@+id/notesFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.notes.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.notes.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 
 </navigation>

@@ -5,36 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.notes.databinding.FragmentEditNotesBinding
+import com.example.notes.databinding.FragmentSignUpBinding
 
-class EditNotesFragment : Fragment() {
-    private var _binding: FragmentEditNotesBinding? = null
+class SignUpFragment : Fragment() {
+    val TAG = "SignUpFragment"
+    private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentEditNotesBinding.inflate(inflater, container, false)
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         val view = binding.root
-        val noteId = EditNotesFragmentArgs.fromBundle(requireArguments()).noteId
         val viewModel : NotesViewModel by activityViewModels()
-        viewModel.noteId = noteId
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        viewModel.navigateToList.observe(viewLifecycleOwner, Observer { navigate ->
+        viewModel.navigateToSignIn.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
                 view.findNavController()
-                    .navigate(R.id.action_editNotesFragment_to_notesFragment)
-                viewModel.onNavigatedToList()
+                    .navigate(R.id.action_signUpFragment_to_signInFragment)
+                viewModel.onNavigatedToSignIn()
+            }
+        })
+        viewModel.errorHappened.observe(viewLifecycleOwner, Observer { error ->
+            error?.let {
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
             }
         })
         return view
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
