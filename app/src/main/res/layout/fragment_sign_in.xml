@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SignInFragment">
     <data>
+        <!-- Data binding variable to connect layout with ViewModel -->
         <variable
             name="viewModel"
             type="com.example.notes.NotesViewModel" />
     </data>
+    <!-- Root layout: A ConstraintLayout for signing in -->
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <!-- ImageViews for background images -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
@@ -22,7 +24,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="60dp"
@@ -31,8 +32,6 @@
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="0dp"
@@ -43,8 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
-
-
+        <!-- TextView for "Sign In" title -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -57,7 +55,7 @@
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <!-- MaterialCardView for email input -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView1"
             android:layout_width="0dp"
@@ -71,7 +69,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView2">
-
+            <!-- TextInputLayout for email input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -79,7 +77,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:hintEnabled="false">
-
+                <!-- TextInputEditText for email input -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailSignIn"
                     android:layout_width="match_parent"
@@ -91,9 +89,8 @@
                     android:text="@={viewModel.user.email}"
                     android:paddingStart="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
+        <!-- MaterialCardView for password input -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView2"
             android:layout_width="0dp"
@@ -107,7 +104,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView1">
-
+            <!-- TextInputLayout for password input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -116,7 +113,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true">
-
+                <!-- TextInputEditText for password input -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordSignIn"
                     android:layout_width="match_parent"
@@ -127,12 +124,9 @@
                     android:inputType="textPassword"
                     android:text="@={viewModel.user.password}"
                     android:paddingStart="12dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-
+        <!-- ImageView for "Next" button -->
         <ImageView
             android:id="@+id/nextButton"
             android:layout_width="60dp"
@@ -144,8 +138,7 @@
             app:layout_constraintEnd_toEndOf="@id/cardView2"
             app:layout_constraintTop_toBottomOf="@id/cardView2"
             android:contentDescription="Click to sign in"/>
-
-
+        <!-- TextView for "Not Registered Yet?" -->
         <TextView
             android:id="@+id/notRegisteredYetButton"
             android:layout_width="wrap_content"
@@ -158,7 +151,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/nextButton" />
-
+        <!-- TextView for "Sign Up" button -->
         <TextView
             android:id="@+id/signUpButton"
             android:layout_width="wrap_content"
@@ -171,7 +164,7 @@
             app:layout_constraintStart_toEndOf="@+id/notRegisteredYetButton"
             app:layout_constraintTop_toTopOf="@id/notRegisteredYetButton"
             android:onClick="@{() -> viewModel.navigateToSignUp()}"/>
-
+        <!-- TextView for "Sign Out" button -->
         <TextView
             android:id="@+id/signOutButton"
             android:layout_width="wrap_content"
@@ -185,20 +178,18 @@
             app:layout_constraintTop_toBottomOf="@id/notRegisteredYetButton"
             app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{() -> viewModel.signOut()}"/>
-
+        <!-- Guidelines for layout positioning -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.20" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.80" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

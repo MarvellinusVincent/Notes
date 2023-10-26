@@ -4,40 +4,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".EditNotesFragment">
+
+    <!-- Data binding variables to connect layout with ViewModel -->
     <data>
         <variable
             name="viewModel"
             type="com.example.notes.NotesViewModel" />
     </data>
-    <LinearLayout
 
+    <!-- Root layout: A vertical LinearLayout for editing notes -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_margin="10dp"
         android:orientation="vertical">
 
+        <!-- Toolbar for displaying the app title and actions -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="Notes"
+            app:titleTextColor="#FFFFFF"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- EditText for note title -->
         <EditText
             android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Title"
-            android:text="@={viewModel.note.noteName}"/>
+            android:text="@={viewModel.note.noteName}" />
 
+        <!-- EditText for note description -->
         <EditText
             android:id="@+id/note_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Description"
             android:layout_weight="1"
-            android:text="@={viewModel.note.noteDescription}"/>
+            android:text="@={viewModel.note.noteDescription}" />
 
+        <!-- Button to save the note -->
         <Button
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SAVE"
-            android:onClick="@{() -> viewModel.saveNote()}"/>
-
+            android:onClick="@{() -> viewModel.saveNote()}" />
     </LinearLayout>
 </layout>

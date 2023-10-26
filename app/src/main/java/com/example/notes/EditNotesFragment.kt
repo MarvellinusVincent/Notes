@@ -11,10 +11,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.notes.databinding.FragmentEditNotesBinding
 
+/**
+ * A fragment for editing notes.
+ */
 class EditNotesFragment : Fragment() {
     private var _binding: FragmentEditNotesBinding? = null
     private val binding get() = _binding!!
 
+    /**
+     * Inflates the fragment's layout and handles note editing.
+     *
+     * @param inflater           The LayoutInflater object for inflating views.
+     * @param container          The parent view to attach the fragment's UI.
+     * @param savedInstanceState  The saved state of the fragment.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentEditNotesBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -33,6 +44,9 @@ class EditNotesFragment : Fragment() {
         return view
     }
 
+    /**
+     * Cleans up the binding when the fragment is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

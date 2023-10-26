@@ -11,3 +11,20 @@
     app:navGraph="@navigation/nav_graph"
     app:defaultNavHost="true"
     tools:context=".MainActivity" />
+
+    <!-- FragmentContainerView Explanation -->
+    <!--
+        FragmentContainerView is used as a container for hosting navigation destinations (Fragments) in your app.
+
+        Attributes:
+        - android:id="@+id/nav_host_fragment": Assigns a unique identifier to this FragmentContainerView.
+        - android:layout_width="match_parent": Specifies the width to match the parent.
+        - android:layout_height="match_parent": Specifies the height to match the parent.
+        - android:padding="16dp": Adds padding to the container, providing spacing around the hosted Fragments.
+        - android:name="androidx.navigation.fragment.NavHostFragment": Specifies that this container is used for navigation purposes.
+        - app:navGraph="@navigation/nav_graph": Specifies the navigation graph associated with this container, defining the navigation flow of the app.
+        - app:defaultNavHost="true": Indicates that this FragmentContainerView is the default host for navigating within the app.
+        - tools:context=".MainActivity": Provides contextual information for the Android layout editor.
+
+        This FragmentContainerView serves as the central navigation hub for your app, directing users to various Fragments based on the defined navigation graph.
+    -->
