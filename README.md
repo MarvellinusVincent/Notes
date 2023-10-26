@@ -16,7 +16,7 @@ The following **required** functionality is completed:
 * [x] User can add a title and a description in the new note
 * [x] User can access previously saved note and edit the name and description
 * [x] User can delete the note it previously saved
-* [ ] User can update the same list of notes from another device
+* [x] User can update the same list of notes from another device
 * [x] Uses a 10dp padding
 * [x] Uses a recycler view with a staggeredgridlayout and 2 columns with the card view having 5dp padding and corner
 * [x] Uses a dialog fragment when the delete button is clicked
@@ -31,7 +31,7 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='View-Walkthrough-Notes.gif' title='View-Walkthrough-Notes' width='50%' alt='View-Walkthrough-Notes' />
+<img src='Video-Walkthrough-Notes-2.gif' title='Video-Walkthrough-Notes-2' width='50%' alt='Video-Walkthrough-Notes-2' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
