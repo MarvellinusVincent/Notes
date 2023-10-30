@@ -1,6 +1,7 @@
 package com.example.notes
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,25 @@ class EditNotesFragment : Fragment() {
         viewModel.noteId = noteId
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        /** Function to handle "Yes" button press in delete confirmation. */
+        fun yesPressed(noteId: String) {
+            binding.viewModel?.deleteNote(noteId)
+        }
+
+        /** Function to handle the confirm delete dialog fragment. */
+        fun deleteClicked(noteId: String) {
+            ConfirmDeleteDialogFragment(noteId, ::yesPressed)
+                .show(childFragmentManager, ConfirmDeleteDialogFragment.TAG)
+        }
+
+        /** Function to handle when the delete button is clicked for a note. */
+        val deleteButton = binding.deleteButton
+        deleteButton.setOnClickListener {
+            deleteClicked(noteId)
+        }
+
+        /** Navigate back to the main fragment when the navigateToList is set to true. */
         viewModel.navigateToList.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
                 view.findNavController()

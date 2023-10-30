@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:text="@{note.noteName}"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
 
             <!-- TextView for Note Description -->
             <TextView
@@ -41,17 +41,8 @@
                 android:layout_height="match_parent"
                 android:text="@{note.noteDescription}"
                 android:layout_gravity="center_vertical"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="@android:color/darker_gray"/>
-            <!-- Delete Button (ImageButton) -->
-            <ImageButton
-                android:id="@+id/delete_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:padding="10dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@android:drawable/ic_delete" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

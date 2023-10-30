@@ -29,6 +29,16 @@
             app:title="Notes"
             app:titleTextColor="#FFFFFF"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:padding="10dp"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                app:srcCompat="@android:drawable/ic_delete"/>
+
         </androidx.appcompat.widget.Toolbar>
 
         <!-- EditText for note title -->

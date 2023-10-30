@@ -15,7 +15,6 @@ import com.example.notes.databinding.NoteItemBinding
  */
 class NoteItemAdapter(
     val clickListener: (note: Note) -> Unit,
-    val deleteClickListener: (noteId: String) -> Unit
 ) : ListAdapter<Note, NoteItemAdapter.NoteItemViewHolder>(NoteDiffItemCallback()) {
 
     /**
@@ -36,7 +35,7 @@ class NoteItemAdapter(
      */
     override fun onBindViewHolder(holder: NoteItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener, deleteClickListener)
+        holder.bind(item, clickListener)
         Log.d("NoteItemAdapter", "Note Content: ${item.noteId}")
     }
 
@@ -72,12 +71,10 @@ class NoteItemAdapter(
         fun bind(
             item: Note,
             clickListener: (note: Note) -> Unit,
-            deleteClickListener: (noteId: String) -> Unit
         ) {
             Log.d("NoteItemAdapter bind", "Note bound")
             binding.note = item
             binding.root.setOnClickListener { clickListener(item) }
-            binding.deleteButton.setOnClickListener { deleteClickListener(item.noteId!!) }
         }
     }
 }

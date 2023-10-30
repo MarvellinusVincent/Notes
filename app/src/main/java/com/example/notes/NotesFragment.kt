@@ -61,7 +61,7 @@ class NotesFragment : Fragment() {
         }
 
         /** Observing the change in the notes database and updates the recycler view. */
-        val adapter = NoteItemAdapter(::noteClicked, ::deleteClicked)
+        val adapter = NoteItemAdapter(::noteClicked)
         binding.listOfNotes.adapter = adapter
         viewModel.notes.observe(viewLifecycleOwner, Observer {
             it?.let {
