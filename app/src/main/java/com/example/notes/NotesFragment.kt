@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -14,93 +15,62 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notes.databinding.FragmentNotesBinding
 
 /**
- * A fragment that displays a list of notes and handles user interactions.
+ * Fragment for displaying a list of notes and providing note management functionality.
  */
 class NotesFragment : Fragment() {
 
-    /**
-     * Tag for logging purposes
-     */
+    /**  Binding for Log Tag. */
     val TAG = "NotesFragment"
 
-    /**
-     * View binding for the fragment
-     */
+    /**  Binding for the fragment. */
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
 
     /**
-     * Inflates the fragment's layout and initializes necessary components.
+     * Inflates the fragment's layout and sets up the UI components.
      *
-     * @param inflater The LayoutInflater to inflate the layout.
-     * @param container The parent view that the fragment UI should be attached to.
-     * @param savedInstanceState The saved instance state, if any.
-     * @return The root View of the fragment.
+     * @param inflater The LayoutInflater object to inflate views.
+     * @param container The parent view to attach the fragment's UI.
+     * @param savedInstanceState The saved state of the fragment.
+     * @return The root view of the fragment.
      */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        /**
-         * Initialize application, DAO, and ViewModel
-         */
-        val application = requireNotNull(this.activity).application
-        val dao = NoteDatabase.getInstance(application).noteDao
-        val viewModelFactory = NotesViewModelFactory(dao)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(NotesViewModel::class.java)
-
-        /**
-         * Bind ViewModel to the layout
-         */
+        /** Get the shared ViewModel for handling notes. */
+        val viewModel : NotesViewModel by activityViewModels()
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        /**
-         * Function to handle note item click
-         */
-        fun noteClicked(noteId: Long) {
-            viewModel.onNoteClicked(noteId)
+        /** Function to handle when a note is clicked. */
+        fun noteClicked(note: Note) {
+            viewModel.onNoteClicked(note)
         }
 
-        /**
-         * Function to handle "Yes" button click in delete confirmation dialog
-         */
-        fun yesPressed(noteId: Long) {
+        /** Function to handle "Yes" button press in delete confirmation. */
+        fun yesPressed(noteId: String) {
             Log.d(TAG, "in yesPressed(): noteId = $noteId")
-            viewModel.deleteNote(noteId)
+            binding.viewModel?.deleteNote(noteId)
         }
 
-        /**
-         * Function to handle delete button click
-         */
-        fun deleteClicked(noteId: Long) {
+        /** Function to handle when the delete button is clicked for a note. */
+        fun deleteClicked(noteId: String) {
             ConfirmDeleteDialogFragment(noteId, ::yesPressed)
                 .show(childFragmentManager, ConfirmDeleteDialogFragment.TAG)
         }
 
-        /**
-         * Initialize RecyclerView adapter and layout manager
-         */
-        val adapter = NoteItemAdapter(emptyList(), ::noteClicked, ::deleteClicked)
+        /** Observing the change in the notes database and updates the recycler view. */
+        val adapter = NoteItemAdapter(::noteClicked)
         binding.listOfNotes.adapter = adapter
-        binding.listOfNotes.layoutManager = LinearLayoutManager(requireContext())
-
-        /**
-         * Observe changes in the list of notes
-         */
         viewModel.notes.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.notes = it.toMutableList()
+                adapter.submitList(it)
+                Log.d("Notes Fragment", "New note is added. List size: ${it.size}")
             }
         })
 
-        /**
-         * Navigate to the EditNotesFragment when a note is clicked
-         */
+        /** Observes to navigate to the edit notes fragment. */
         viewModel.navigateToNote.observe(viewLifecycleOwner, Observer { noteId ->
             noteId?.let {
                 Log.d("NotesFragment", "addNoteId observed: $noteId")
@@ -110,11 +80,18 @@ class NotesFragment : Fragment() {
                 viewModel.onNoteNavigated()
             }
         })
+
+        /** Observes to navigate to the sign in fragment. */
+        viewModel.navigateToSignIn.observe(viewLifecycleOwner, Observer { navigate ->
+            if(navigate) {
+                this.findNavController().navigate(R.id.action_notesFragment_to_signInFragment)
+                viewModel.onNavigatedToSignIn()
+            }
+        })
         return view
     }
-
     /**
-     * Cleans up the view binding when the fragment is destroyed.
+     * Cleans up the binding when the fragment is destroyed.
      */
     override fun onDestroyView() {
         super.onDestroyView()

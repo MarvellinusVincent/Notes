@@ -1,64 +1,59 @@
 package com.example.notes
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.notes.databinding.FragmentEditNotesBinding
 
 /**
- * A Fragment for editing notes.
+ * A fragment for editing notes.
  */
 class EditNotesFragment : Fragment() {
     private var _binding: FragmentEditNotesBinding? = null
     private val binding get() = _binding!!
 
+    /**
+     * Inflates the fragment's layout and handles note editing.
+     *
+     * @param inflater           The LayoutInflater object for inflating views.
+     * @param container          The parent view to attach the fragment's UI.
+     * @param savedInstanceState  The saved state of the fragment.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        /**
-         * Inflate the layout for this fragment using data binding.
-         */
         _binding = FragmentEditNotesBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        /**
-         * Get the noteId from the arguments passed to this fragment.
-         */
         val noteId = EditNotesFragmentArgs.fromBundle(requireArguments()).noteId
-
-        /**
-         * Get application and DAO instances for the ViewModelFactory.
-         */
-        val application = requireNotNull(this.activity).application
-        val dao = NoteDatabase.getInstance(application).noteDao
-
-        /**
-         * Create a ViewModelFactory with the noteId and DAO.
-         */
-        val viewModelFactory = EditNotesViewModelFactory(noteId, dao)
-
-        /**
-         * Create the ViewModel with the ViewModelFactory.
-         */
-        val viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(EditNotesViewModel::class.java)
-
-        /**
-         * Bind the ViewModel to the layout.
-         */
+        val viewModel : NotesViewModel by activityViewModels()
+        viewModel.noteId = noteId
         binding.viewModel = viewModel
-
-        /**
-         * Set the lifecycle owner for observing LiveData.
-         */
         binding.lifecycleOwner = viewLifecycleOwner
 
-        /**
-         * Observe the navigateToList LiveData to handle navigation.
-         */
+        /** Function to handle "Yes" button press in delete confirmation. */
+        fun yesPressed(noteId: String) {
+            binding.viewModel?.deleteNote(noteId)
+        }
+
+        /** Function to handle the confirm delete dialog fragment. */
+        fun deleteClicked(noteId: String) {
+            ConfirmDeleteDialogFragment(noteId, ::yesPressed)
+                .show(childFragmentManager, ConfirmDeleteDialogFragment.TAG)
+        }
+
+        /** Function to handle when the delete button is clicked for a note. */
+        val deleteButton = binding.deleteButton
+        deleteButton.setOnClickListener {
+            deleteClicked(noteId)
+        }
+
+        /** Navigate back to the main fragment when the navigateToList is set to true. */
         viewModel.navigateToList.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
                 view.findNavController()
@@ -69,11 +64,11 @@ class EditNotesFragment : Fragment() {
         return view
     }
 
+    /**
+     * Cleans up the binding when the fragment is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
-        /**
-         * Clean up the binding reference when the view is destroyed.
-         */
         _binding = null
     }
 }

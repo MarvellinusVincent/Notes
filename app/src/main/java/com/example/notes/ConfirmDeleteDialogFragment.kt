@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment
  * @param noteId The ID of the note to be deleted.
  * @param clickListener A lambda function that will be called when the user confirms the deletion.
  */
-class ConfirmDeleteDialogFragment(val noteId: Long, val clickListener: (noteId: Long) -> Unit) : DialogFragment() {
+class ConfirmDeleteDialogFragment(val noteId: String, val clickListener: (noteId: String) -> Unit) : DialogFragment() {
 
     /**
      * Tag for logging purposes

@@ -4,29 +4,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/notesFragment">
+    app:startDestination="@id/splashFragment">
 
+    <!-- Splash Fragment -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.notes.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <!-- Navigation Action: Navigate from Splash to SignIn Fragment -->
+        <action
+            android:id="@+id/action_splashFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <!-- Navigation Action: Navigate from Splash to Notes Fragment -->
+        <action
+            android:id="@+id/action_splashFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
+    </fragment>
+
+    <!-- Notes Fragment -->
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.example.notes.NotesFragment"
         android:label="fragment_notes"
         tools:layout="@layout/fragment_notes">
+        <!-- Navigation Action: Navigate from Notes to EditNotes Fragment -->
         <action
             android:id="@+id/action_notesFragment_to_editNotesFragment"
             app:destination="@+id/editNotesFragment"/>
+        <!-- Navigation Action: Navigate from Notes to SignIn Fragment -->
+        <action
+            android:id="@+id/action_notesFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 
+    <!-- EditNotes Fragment -->
     <fragment
         android:id="@+id/editNotesFragment"
         android:name="com.example.notes.EditNotesFragment"
         android:label="fragment_edit_notes"
         tools:layout="@layout/fragment_edit_notes">
+        <!-- Argument for passing noteId -->
         <argument
             android:name="noteId"
-            app:argType="long" />
+            app:argType="string" />
+        <!-- Navigation Action: Navigate from EditNotes to Notes Fragment -->
         <action
             android:id="@+id/action_editNotesFragment_to_notesFragment"
             app:destination="@+id/notesFragment"/>
+    </fragment>
+
+    <!-- SignIn Fragment -->
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.notes.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <!-- Navigation Action: Navigate from SignIn to Notes Fragment -->
+        <action
+            android:id="@+id/action_signInFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
+        <!-- Navigation Action: Navigate from SignIn to SignUp Fragment -->
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+
+    <!-- SignUp Fragment -->
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.notes.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <!-- Navigation Action: Navigate from SignUp to SignIn Fragment -->
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 
 </navigation>

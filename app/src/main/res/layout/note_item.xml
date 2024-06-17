@@ -2,30 +2,47 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Data Binding Layout -->
     <data>
+        <!-- Define a variable to bind data from a Note object -->
         <variable
             name="note"
             type="com.example.notes.Note" />
     </data>
+
+    <!-- CardView to Display a Note -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        android:layout_margin="5dp">
+
+        <!-- Container for Note Contents -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <!-- TextView for Note Name -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@{note.noteName}" />
-            <ImageButton
-                android:id="@+id/delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                app:srcCompat="@android:drawable/ic_delete"/>
+                android:text="@{note.noteName}"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <!-- TextView for Note Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{note.noteDescription}"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@android:color/darker_gray"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

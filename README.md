@@ -7,14 +7,20 @@ An app that allows users to store and edit notes
 The following **required** functionality is completed:
 
 * [x] User can start the app
-* [x] User can click the add note button to add a new note
+* [x] User can sign in to view the apps they have previously saved (firebase authentication)
+* [x] User can sign up to create a new account in the app (firebase authentication)
+* [x] User can log out of the app (firebase authentication)
+* [x] User will automatically go in the sign in page if they are not yet logged in, if they are logged in then they will go to the notes page immediately
+* [x] If a user wants to sign out or sign in another account, they can click the user icon in the top right
+* [x] User can click the add note icon button in the top right to add a new note
 * [x] User can add a title and a description in the new note
 * [x] User can access previously saved note and edit the name and description
 * [x] User can delete the note it previously saved
+* [x] User can update the same list of notes from another device
 * [x] Uses a 10dp padding
-* [x] Uses a recycler view
+* [x] Uses a recycler view with a staggeredgridlayout and 2 columns with the card view having 5dp padding and corner
 * [x] Uses a dialog fragment when the delete button is clicked
-* [x] Stores all database using room library
+* [x] Stores all database using firebase realtime database
 * [x] Uses diffutil
 
 The following **extensions** are implemented:
@@ -25,15 +31,15 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+
 <img src='Video-Walkthrough-Notes.gif' title='Video-Walkthrough-Notes' width='50%' alt='Video-Walkthrough-Notes' />
+
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-1. Task Item adapter was apparently outdated according to TA
-2. The note wasnt appearing on the recycler view and took some time to solve it
-3. The concepts in general were a bit more difficult this time as it was completely new
+1. Everything went smoothly for this project
 
 ## License
 
